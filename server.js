@@ -21,6 +21,7 @@ app.use(passport.session());
 
 // Require our routes
 require("./routes/api-routes");
+require("./routes/html-routes");
 
 // Sync the database and start server
 db.sequelize.sync().then(function () {
