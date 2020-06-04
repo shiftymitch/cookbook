@@ -1,0 +1,28 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "## Application Requirements",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiftymitch/project-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.3",
+    "express-session": "^1.17.1",
+    "mysql2": "^1.6.4",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^4.41.2"
+  },
+  "bugs": {
+    "url": "https://github.com/shiftymitch/project-2/issues"
+  },
+  "homepage": "https://github.com/shiftymitch/project-2#readme"
+}
