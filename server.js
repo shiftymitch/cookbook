@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 
@@ -24,8 +25,9 @@ require("./routes/api-routes");
 require("./routes/html-routes");
 
 // Sync the database and start server
-db.sequelize.sync().then(function () {
+db.sequelize.sync({ force: true }).then(function () {
     app.listen(PORT, () => {
         console.log(`Listening on PORT: ${PORT}`);
     })
 });
+
