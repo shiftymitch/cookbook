@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "npm test",
-    "start": "node server.js"
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/shiftymitch/project-2/issues"
   },
-  "homepage": "https://github.com/shiftymitch/project-2#readme"
+  "homepage": "https://github.com/shiftymitch/project-2#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
