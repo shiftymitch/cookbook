@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         },
 
-        // description
+        // instructions
         instructions: {
             type: DataTypes.TEXT,
             allowNull: false
