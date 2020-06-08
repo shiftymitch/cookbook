@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Ingredient.associate = function (models) {
-    Ingredient.belongsTo(models.Recipes, {
+    Ingredient.belongsTo(models.Recipe, {
       foreignKey: {
         allowNull: false
       }
