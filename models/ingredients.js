@@ -29,7 +29,7 @@ module.exports = function (sequelize, DataTypes) {
   Ingredient.associate = function (models) {
     Ingredient.belongsTo(models.Recipe, {
       foreignKey: {
-        allowNull: false
+        allowNull: true
       }
     });
   };

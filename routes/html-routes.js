@@ -28,4 +28,8 @@ module.exports = function (app) {
     res.render("profile");
   });
 
+  app.get("/add-recipe", isAuthenticated, function (req, res) {
+    res.render("add-recipe");
+  });
+
 };
