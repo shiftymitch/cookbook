@@ -24,7 +24,7 @@ $(document).ready(function () {
             return;
         } 
 
-        addRecipe(recipeName, recipeDesc, instructions);
+        addRecipe(recipeName, recipeDesc, instructions, ingQty, ingMsr, ingName);
         // addIngredients(ingQty, ingMsr, ingName);
         
         // clear form inputs
@@ -36,12 +36,18 @@ $(document).ready(function () {
     })
 
     //! send newRecipe & newIngredients on submit
-    function addRecipe(title, description, instructions) {
+    function addRecipe(title, description, instructions, ingQty, ingMsr, ingName) {
 
         $.post("/api/add-recipe", {
             title: title,
             description: description,
-            instructions: instructions
+            instructions: instructions,
+            ingredients: [
+                { qty: ingQty,
+                 measurement: ingMsr,
+                 ingredient: ingName},
+
+            ]
         })
         .then(() => {
             console.log("recipe added")

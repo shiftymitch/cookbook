@@ -47,7 +47,7 @@ module.exports = function (app) {
 
   //! add-recipe
   app.post("/api/add-recipe", function (req, res) {
-    console.log("req.user", req.user);
+    console.log("req.user", req.body);
 
     db.Recipe.create({
       title: req.body.title,
@@ -56,6 +56,7 @@ module.exports = function (app) {
       UserId: req.user.id
     })
     .then(function (data) {
+      console.log('hit data: ', data);
       return db.Ingredient.create({
         qty: req.body.qty,
         measurement: req.body.measurement,
@@ -63,10 +64,11 @@ module.exports = function (app) {
         RecipeId: data.dataValues.id
       })
     }).then((data) => {
-      console.log(data);
+      console.log('hit', data);
       res.sendStatus(200);
     })
     .catch(function (err) {
+      console.log({err});
       res.status(401).json(err);
     });
   });
