@@ -25,12 +25,19 @@ $(document).ready(function () {
         } 
 
         addRecipe(recipeName, recipeDesc, instructions);
-        addIngredients(ingQty, ingMsr, ingName);
+        // addIngredients(ingQty, ingMsr, ingName);
         
+        // clear form inputs
+        $("input#recipe-name").val("");
+        $("textarea#recipe-description").val("");
+        $("textarea#instructions").val("");
+        $("input#ing-qty").val("");
+        $("input#ing-name").val("");
     })
 
     //! send newRecipe & newIngredients on submit
     function addRecipe(title, description, instructions) {
+
         $.post("/api/add-recipe", {
             title: title,
             description: description,

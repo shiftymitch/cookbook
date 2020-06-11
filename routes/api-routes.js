@@ -6,6 +6,7 @@ module.exports = function (app) {
 
   //! login
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
+    
     res.json({
       email: req.user.email,
       id: req.user.id
@@ -46,17 +47,28 @@ module.exports = function (app) {
 
   //! add-recipe
   app.post("/api/add-recipe", function (req, res) {
+    console.log("req.user", req.user);
+
     db.Recipe.create({
       title: req.body.title,
       description: req.body.description,
-      instructions: req.body.instructions
+      instructions: req.body.instructions,
+      UserId: req.user.id
     })
-    .then(function () {
-        
+    .then(function (data) {
+      return db.Ingredient.create({
+        qty: req.body.qty,
+        measurement: req.body.measurement,
+        ingredient: req.body.ingredient,
+        RecipeId: data.dataValues.id
       })
-      .catch(function (err) {
-        res.status(401).json(err);
-      });;
+    }).then((data) => {
+      console.log(data);
+      res.sendStatus(200);
+    })
+    .catch(function (err) {
+      res.status(401).json(err);
+    });
   });
 
   //! add-ingredient
