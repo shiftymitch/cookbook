@@ -7,6 +7,20 @@ $(document).ready(function () {
   const signupEmailInput = $("input#signup-email-input");
   const signupPasswordInput = $("input#signup-password-input");
 
+  // Set value to determine handlebar block served
+  let signingUp = true;
+
+  $("#login-switch").click(() => {
+    signingUp = false;
+    console.log(signingUp);
+  })
+
+  $("#signup-switch").click(() => {
+    signingUp = true;
+    console.log(signingUp);
+  })
+
+
   // When the form is submitted, validate there's a email and password entered
   loginForm.on("submit", function (event) {
     event.preventDefault();
@@ -76,3 +90,6 @@ $(document).ready(function () {
     $(".users-name").text(data.email);
   });
 });
+
+// Auto-update copyright year
+$("#copyright-year").text(moment().format("YYYY"))
