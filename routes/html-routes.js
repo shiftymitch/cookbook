@@ -28,4 +28,10 @@ module.exports = function (app) {
     res.render("profile");
   });
 
+
+  // serve recipe page 
+  app.get("/recipe", function (req, res) {
+    res.render("recipe");
+  });
+
 };
