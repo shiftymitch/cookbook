@@ -23,14 +23,22 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    // Recipe/User association
+    
     Recipe.associate = function(models) {
+        // Recipe/User association
         Recipe.belongsTo(models.User, {
           foreignKey: {
-            allowNull: false
+            allowNull: true
           }
         });
+        // Recipe/Ingredients association
+        Recipe.hasMany(models.Ingredient, {
+            
+        });
+
       };
+
+    
 
     return Recipe;
 };
