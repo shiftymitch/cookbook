@@ -51,8 +51,8 @@ module.exports = function (app) {
       description: req.body.description,
       instructions: req.body.instructions
     })
-    .then(function () {
-        
+      .then(function () {
+
       })
       .catch(function (err) {
         res.status(401).json(err);
@@ -66,12 +66,11 @@ module.exports = function (app) {
       measurement: req.body.measurement,
       ingredient: req.body.ingredient
     })
-    .then(function () {
-        
+      .then(function () {
+
       })
       .catch(function (err) {
         res.status(401).json(err);
       });;
   });
-
 };

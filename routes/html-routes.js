@@ -42,4 +42,9 @@ module.exports = function (app) {
   app.get("/add-recipe", isAuthenticated, function (req, res) {
     res.render("add-recipe");
   });
+
+  // Display search results
+  app.get("/search-results", isAuthenticated, function (req, res) {
+    res.render("search-results")
+  });
 };
