@@ -1,5 +1,22 @@
+body {
+  color: #18335e;
+}
+
+/* Header CSS */
+.navbar {
+  background-color: #ececec;
+  height: 10vh;
+}
+
+/* Recipe Page CSS */
+#recipe-content {
+  margin-top: 40px;
+  margin-right: 40px;
+}
+
+/* Footer CSS */
 .footer {
-  background-color: white;
+  background-color: #ececec;
   margin: auto;
   padding: 2rem 1.5rem 2rem;
   width: 100%;
