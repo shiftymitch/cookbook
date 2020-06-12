@@ -4,3 +4,15 @@
   padding: 2rem 1.5rem 2rem;
   width: 100%;
 }
+
+.button.is-link {
+  background-color: #EFA35C;
+}
+
+.button.is-link:hover {
+  background-color: #cc7625;
+}
+
+.label {
+  text-align: left;
+}
