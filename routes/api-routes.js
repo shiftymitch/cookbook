@@ -56,16 +56,19 @@ module.exports = function (app) {
       UserId: req.user.id
     })
     .then(function (data) {
+      console.log('hit data: ', data);
       return db.Ingredient.create({
-        qty: req.body.qty,
-        measurement: req.body.measurement,
-        ingredient: req.body.ingredient,
+        qty: req.body.ingredients[0].qty,
+        measurement: req.body.ingredients[0].measurement,
+        ingredient: req.body.ingredients[0].ingredient,
         RecipeId: data.dataValues.id
       })
     }).then((data) => {
+      console.log('hit', data);
       res.sendStatus(200);
     })
     .catch(function (err) {
+      console.log({err});
       res.status(401).json(err);
     });
   });
