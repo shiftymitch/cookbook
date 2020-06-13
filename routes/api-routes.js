@@ -1,4 +1,6 @@
-// Requiring our models and passport as we've configured it
+// Dependencies
+require("dotenv").config();
+const axios = require("axios")
 const db = require("../models");
 const passport = require("../config/passport");
 
@@ -6,7 +8,7 @@ module.exports = function (app) {
 
   //! login
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    
+
     res.json({
       email: req.user.email,
       id: req.user.id
@@ -55,22 +57,22 @@ module.exports = function (app) {
       instructions: req.body.instructions,
       UserId: req.user.id
     })
-    .then(function (data) {
-      console.log('hit data: ', data);
-      return db.Ingredient.create({
-        qty: req.body.ingredients[0].qty,
-        measurement: req.body.ingredients[0].measurement,
-        ingredient: req.body.ingredients[0].ingredient,
-        RecipeId: data.dataValues.id
+      .then(function (data) {
+        console.log('hit data: ', data);
+        return db.Ingredient.create({
+          qty: req.body.ingredients[0].qty,
+          measurement: req.body.ingredients[0].measurement,
+          ingredient: req.body.ingredients[0].ingredient,
+          RecipeId: data.dataValues.id
+        })
+      }).then((data) => {
+        console.log('hit', data);
+        res.sendStatus(200);
       })
-    }).then((data) => {
-      console.log('hit', data);
-      res.sendStatus(200);
-    })
-    .catch(function (err) {
-      console.log({err});
-      res.status(401).json(err);
-    });
+      .catch(function (err) {
+        console.log({ err });
+        res.status(401).json(err);
+      });
   });
 
   //! add-ingredient
@@ -80,12 +82,28 @@ module.exports = function (app) {
       measurement: req.body.measurement,
       ingredient: req.body.ingredient
     })
-    .then(function () {
-        
+      .then(function () {
+
       })
       .catch(function (err) {
         res.status(401).json(err);
       });;
   });
 
+  // Query 3rd party API and produce random recipe
+
+  app.get("/api/random-recipe", function (req, res) {
+
+    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4]
+    let key = keys[Math.floor(Math.random() * keys.length)]
+
+    axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
+      .then((response) => {
+        res.send(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+  });
 };
