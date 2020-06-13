@@ -3,8 +3,46 @@
     <div class="container">
       <div class="columns is-centered has-text-centered">
         <div class="column is-6">
-          <a href="/login">login</a>
-          <a href="/signup">signup</a>
+          <img src="./img/spoons-bg-left.png" alt="Large wooden spoons">
+        </div>
+        <div class="column is-5 is-offset-1">
+          <h2 class="is-size-2">Create a Free Account to Access Thousands of Recipes</h2>
+          <button class="button is-peach is-large m-t2" onclick="location.href='/signup'" type="button">Create an
+            Account</button>
+          <p class="help m-t1">Already have an account? <a href="/login">Login</a> now</p>
+        </div>
+      </div>
+      <div class="column has-text-centered">
+        <p class="is-size-3 m-t3">Check out these two recipes!</p>
+      </div>
+
+      <div class="columns is-centered m-t1">
+        <div class="column is-6">
+          <div class="box">
+            <div class="level">
+              <p class="is-size-3" id="random-recipe-one-name"></p>
+              <img id="random-recipe-one-img" src="" alt="" width="185" height="123">
+            </div>
+            <br>
+            <div class="content">
+              <p class="title is-size-5">Recipe Description</p>
+              <p class="is-size-5" id="random-recipe-one-summary"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="box">
+            <div class="level">
+              <p class="is-size-3" id="random-recipe-two-name"></p>
+              <img id="random-recipe-two-img" src="" alt="" width="185" height="123">
+            </div>
+            <br>
+            <div class="content">
+              <p class="title is-size-5">Recipe Description</p>
+              <p class="is-size-5" id="random-recipe-two-summary"></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

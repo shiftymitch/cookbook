@@ -1,11 +1,15 @@
 <div class="container">
-  <div class="columns is-centered has-text-centered">
+  <div class="columns is-centered has-text-centered is-vcentered">
+
+    {{!-- image --}}
     <div class="column is-6">
-      Insert Image
+      <img id="chef-add-recipe" src="/img/chef-add-recipe.png" alt="">
     </div>
-    <div class="column is-6">
+
+    {{!-- form --}}
+    <div id="form" class="column is-6">
       <h1>Enter Your Complete Recipe Below.</h1>
-      
+      <br>
       <div class="field">
         <label class="label">Recipe Name</label>
         <div class="control">
@@ -46,6 +50,10 @@
           <input id="ing-name" class="input" type="input">
         </div>
       </div>
+
+      <div id="new-ingredient" class="has-text-right">
+        <a id="add-ingredient">Add Ingredient</a>
+      </div>
       
       <div class="field">
         <label class="label">Instructions</label>
@@ -54,24 +62,28 @@
         </div>
       </div>
 
+      <br>
+      
       <div class="columns is-grouped">
+
+        <label class="column label">Recipe Image</label>
+
         <div class="column field">
           <div class="file">
-              <input class="file-input" type="file" name="resume">
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">
-                  Upload Image…
-                </span>
+            <input class="file-input" type="file" name="resume">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
               </span>
-            </label>
+              <span class="file-label">
+                Upload
+              </span>
+            </span>
           </div>
-        
         </div>
+
         <div class="column field">
-          <div class="control">
+          <div class="control level-right">
             <button id="recipe-submit" class="button is-link">Submit</button>
           </div>
         </div>

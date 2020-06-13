@@ -24,17 +24,30 @@ $(document).ready(function () {
             return;
         } 
 
-        addRecipe(recipeName, recipeDesc, instructions);
-        addIngredients(ingQty, ingMsr, ingName);
+        addRecipe(recipeName, recipeDesc, instructions, ingQty, ingMsr, ingName);
+        // addIngredients(ingQty, ingMsr, ingName);
         
+        // clear form inputs
+        $("input#recipe-name").val("");
+        $("textarea#recipe-description").val("");
+        $("textarea#instructions").val("");
+        $("input#ing-qty").val("");
+        $("input#ing-name").val("");
     })
 
     //! send newRecipe & newIngredients on submit
-    function addRecipe(title, description, instructions) {
+    function addRecipe(title, description, instructions, ingQty, ingMsr, ingName) {
+
         $.post("/api/add-recipe", {
             title: title,
             description: description,
-            instructions: instructions
+            instructions: instructions,
+            ingredients: [
+                { qty: ingQty,
+                 measurement: ingMsr,
+                 ingredient: ingName},
+
+            ]
         })
         .then(() => {
             console.log("recipe added")
