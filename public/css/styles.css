@@ -1,5 +1,32 @@
+body {
+  color: #18335e;
+}
+
+/* Header CSS */
+.navbar {
+  background-color: #ececec;
+  height: 10vh;
+}
+
+/* Search Results Page */
+.add-search {
+  height: 30px;
+  width: 60%;
+}
+
+.add-search-btn {
+  height: 30px;
+}
+
+/* Recipe Page CSS */
+#recipe-content {
+  margin-top: 40px;
+  margin-right: 40px;
+}
+
+/* Footer CSS */
 .footer {
-  background-color: white;
+  background-color: #ececec;
   margin: auto;
   padding: 2rem 1.5rem 2rem;
   width: 100%;
@@ -30,6 +57,22 @@
 
 .m-t4 {
   margin-top: 4em;
+}
+
+.m-b1 {
+  margin-bottom: 1em;
+}
+
+.m-b3 {
+  margin-bottom: 3em;
+}
+
+.m-b2 {
+  margin-bottom: 2em;
+}
+
+.m-b4 {
+  margin-bottom: 4em;
 }
 
 .button.is-link {

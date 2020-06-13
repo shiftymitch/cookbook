@@ -5,7 +5,7 @@ $(document).ready(function () {
   // Get random recipes from 3rd party API and use data for homepage
   function getRandomRecipe() {
     $.get("/api/random-recipe").then(function (data) {
-      console.log(data.recipes)
+      // console.log(data.recipes)
       $("#random-recipe-one-name").text(data.recipes[0].title);
       $("#random-recipe-one-name").attr({
         href: data.recipes[0].spoonacularSourceUrl,
