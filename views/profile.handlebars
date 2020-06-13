@@ -22,7 +22,7 @@
           <div class="m-t2">
             <h3 class="is-size-5">Welcome <span class="users-name"></span></h3>
             <h2 class="is-size-4">Add A Recipe To The Community</h2>
-            <button class="button is-peach is-medium m-t1" onclick="location.href='/signup'" type="button">Click To
+            <button class="button is-peach is-medium m-t1" onclick="location.href='/add-recipe'" type="button">Click To
               Add</button>
           </div>
         </div>
@@ -35,59 +35,7 @@
       <div class="is-centered">
         <div class="box">
           {{!-- User Recipe Block --}}
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-128x128">
-                <img src="https://bulma.io/images/placeholders/128x128.png" alt="placeholder">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <h3 class="is-size-5">Recipe Name</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In adipisci voluptate, voluptatum iste
-                  asperiores quas impedit eveniet! Similique, recusandae facere.</p>
-              </div>
-            </div>
-            <div class="media-right">
-              <p class="is-size-6">Date Added</p>
-            </div>
-          </article>
-          {{!-- User Recipe Block --}}
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-128x128">
-                <img src="https://bulma.io/images/placeholders/128x128.png" alt="placeholder">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <h3 class="is-size-5">Recipe Name</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In adipisci voluptate, voluptatum iste
-                  asperiores quas impedit eveniet! Similique, recusandae facere.</p>
-              </div>
-            </div>
-            <div class="media-right">
-              <p class="is-size-6">Date Added</p>
-            </div>
-          </article>
-          {{!-- User Recipe Block --}}
-          <article class="media">
-            <figure class="media-left">
-              <p class="image is-128x128">
-                <img src="https://bulma.io/images/placeholders/128x128.png" alt="placeholder">
-              </p>
-            </figure>
-            <div class="media-content">
-              <div class="content">
-                <h3 class="is-size-5">Recipe Name</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In adipisci voluptate, voluptatum iste
-                  asperiores quas impedit eveniet! Similique, recusandae facere.</p>
-              </div>
-            </div>
-            <div class="media-right">
-              <p class="is-size-6">Date Added</p>
-            </div>
-          </article>
+          {{> userRecipe-block}}
         </div>
       </div>
     </div>

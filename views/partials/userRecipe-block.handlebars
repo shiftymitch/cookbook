@@ -1,0 +1,34 @@
+{{#if recipe.noRecipe}}
+<article class="media">
+    <figure class="media-left">
+    </figure>
+    <div class="media-content">
+        <div class="content has-text-centered">
+            <h3 class="is-size-5">Please Add Your Favorite Recipes To The Community!</h3>
+        </div>
+    </div>
+    <div class="media-right">
+    </div>
+</article>
+
+{{else}}
+
+{{#each recipe}}
+<article class="media">
+    <figure class="media-left">
+        <p class="image is-128x128">
+            <img src="https://bulma.io/images/placeholders/128x128.png" alt="placeholder">
+        </p>
+    </figure>
+    <div class="media-content">
+        <div class="content">
+            <h3 class="is-size-5"><a href="#">{{title}}</a></h3>
+            <p>{{description}}</p>
+        </div>
+    </div>
+    <div class="media-right">
+        <p class="is-size-6">{{createdAt}}</p>
+    </div>
+</article>
+{{/each}}
+{{/if}}
