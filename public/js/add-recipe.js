@@ -45,8 +45,7 @@ $(document).ready(function () {
             ingredients: [
                 { qty: ingQty,
                  measurement: ingMsr,
-                 ingredient: ingName},
-
+                 ingredient: ingName}
             ]
         })
         .then(() => {
@@ -54,15 +53,48 @@ $(document).ready(function () {
         })
     }
     
-    function addIngredients(qty, measurement, ingredient) {
-        $.post("/api/add-ingredient", {
-            qty: qty,
-            measurement: measurement,
-            ingredient: ingredient
-        })
-        .then(() => {
-            res.redirect(307, "/profile");
-        })
-        .catch();
+    $("#add-ingredient").on("click", (data) => {
+        event.preventDefault();
+
+        let allRows = $(".ingredient-rows");
+        let newRow = `
+        <div class="field columns is-grouped">
+            <div class="control column">
+                <label class="label is-small">Qty</label>
+                <input class="input" type="input">
+            </div>
+            <div class="control column">
+                <label class="label is-small">Measurement</label>
+                <div class="select">
+                <select id="ing-measurement">
+                    <option>cups</option>
+                    <option>lbs</option>
+                    <option>oz</option>
+                    <option>pinch</option>
+                    <option>pints</option>
+                    <option>quarts</option>
+                    <option>tsp</option>
+                    <option>tbsp</option>
+                </select>
+                </div>
+            </div>
+            <div class="control column">
+                <label  class="label is-small">Ingredient Name</label>
+                <input class="input" type="input">
+            </div>
+        </div>
+        `;
+
+        allRows.append(newRow);
+    })
+
+
+    const fileInput = document.querySelector('#image-upload input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#image-upload .file-name');
+            fileName.textContent = fileInput.files[0].name;
+        }
     }
+
 });
