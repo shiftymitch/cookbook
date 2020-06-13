@@ -57,10 +57,6 @@ module.exports = function (app) {
       instructions: req.body.instructions,
       UserId: req.user.id
     })
-<<<<<<< HEAD
-      .then(function () {
-
-=======
       .then(function (data) {
         console.log('hit data: ', data);
         return db.Ingredient.create({
@@ -72,7 +68,6 @@ module.exports = function (app) {
       }).then((data) => {
         console.log('hit', data);
         res.sendStatus(200);
->>>>>>> master
       })
       .catch(function (err) {
         console.log({ err });
@@ -94,8 +89,6 @@ module.exports = function (app) {
         res.status(401).json(err);
       });;
   });
-<<<<<<< HEAD
-=======
 
   // Query 3rd party API and produce random recipe
 
@@ -113,5 +106,4 @@ module.exports = function (app) {
       })
 
   });
->>>>>>> master
 };
