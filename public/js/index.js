@@ -5,7 +5,7 @@ $(document).ready(function () {
   //! send newRecipe & newIngredients on submit
   function getRandomRecipe() {
     $.get("/api/random-recipe").then(function (data) {
-      console.log(data.recipes)
+      // console.log(data.recipes)
       $("#random-recipe-one-name").text(data.recipes[0].title);
       $("#random-recipe-one-img").attr({
         src: data.recipes[0].image,
