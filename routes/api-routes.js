@@ -57,37 +57,35 @@ module.exports = function (app) {
       instructions: req.body.instructions,
       UserId: req.user.id
     })
-      .then(function (data) {
-        console.log('hit data: ', data);
-        return db.Ingredient.create({
-          qty: req.body.ingredients[0].qty,
-          measurement: req.body.ingredients[0].measurement,
-          ingredient: req.body.ingredients[0].ingredient,
+
+    .then(function (data) {
+      
+      let Array = [];
+      
+      for (let i = 0; i < req.body.ingredients.length; i++ ) {
+        
+        let qty = req.body.ingredients[i].qty;
+        let measurement = req.body.ingredients[i].measurement;
+        let name = req.body.ingredients[i].name;
+
+        Array.push({
+          qty: qty,
+          measurement: measurement,
+          name: name,
           RecipeId: data.dataValues.id
         })
-      }).then((data) => {
-        console.log('hit', data);
-        res.sendStatus(200);
-      })
-      .catch(function (err) {
-        console.log({ err });
-        res.status(401).json(err);
-      });
-  });
+      }
 
-  //! add-ingredient
-  app.post("/api/add-ingredient", function (req, res) {
-    db.Ingredient.create({
-      qty: req.body.qty,
-      measurement: req.body.measurement,
-      ingredient: req.body.ingredient
+      db.Ingredient.bulkCreate(Array);
+
+    }).then((data) => {
+      console.log('hit', data);
+      res.sendStatus(200);
     })
-      .then(function () {
-
-      })
-      .catch(function (err) {
-        res.status(401).json(err);
-      });;
+    .catch(function (err) {
+      console.log({err});
+      res.status(401).json(err);
+    });
   });
 
   // Query 3rd party API and produce random recipe
