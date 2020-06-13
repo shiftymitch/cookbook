@@ -8,6 +8,7 @@ module.exports = function (app) {
 
   //! login
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
+
     res.json({
       email: req.user.email,
       id: req.user.id
@@ -48,17 +49,30 @@ module.exports = function (app) {
 
   //! add-recipe
   app.post("/api/add-recipe", function (req, res) {
+    console.log("req.user", req.body);
+
     db.Recipe.create({
       title: req.body.title,
       description: req.body.description,
-      instructions: req.body.instructions
+      instructions: req.body.instructions,
+      UserId: req.user.id
     })
-      .then(function () {
-
+      .then(function (data) {
+        console.log('hit data: ', data);
+        return db.Ingredient.create({
+          qty: req.body.ingredients[0].qty,
+          measurement: req.body.ingredients[0].measurement,
+          ingredient: req.body.ingredients[0].ingredient,
+          RecipeId: data.dataValues.id
+        })
+      }).then((data) => {
+        console.log('hit', data);
+        res.sendStatus(200);
       })
       .catch(function (err) {
+        console.log({ err });
         res.status(401).json(err);
-      });;
+      });
   });
 
   //! add-ingredient
