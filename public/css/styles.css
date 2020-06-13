@@ -16,3 +16,7 @@
 .label {
   text-align: left;
 }
+
+#add-recipe-form {
+  padding: 40px;
+}

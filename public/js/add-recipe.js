@@ -1,100 +1,101 @@
-$(document).ready(function () {
+//! Input & Button Refs
+let recipeName = "";
+let recipeDesc = "";
+let ingQty = "";
+let ingMsr = "";
+let ingName = "";
+let instructions = "";
+let imgUploadBtn = $("input#img-upload");
+let recipeSubmit = $("button#recipe-submit");
+let ingRows = 1;
 
-    //! Input & Button Refs
-    let recipeName = "";
-    let recipeDesc = "";
-    let ingQty = "";
-    let ingMsr = "";
-    let ingName = "";
-    let instructions = "";
-    let imgUploadBtn = $("input#img-upload");
-    let recipeSubmit = $("button#recipe-submit");
+//! get input values, then submit
+recipeSubmit.on("click", () => {
     
-    //! get input values, then submit
-    recipeSubmit.on("click", () => {
+    title = $("input#recipe-name").val();
+    description = $("textarea#recipe-description").val();
+    instructions = $("textarea#instructions").val();
 
-        recipeName = $("input#recipe-name").val();
-        recipeDesc = $("textarea#recipe-description").val();
-        instructions = $("textarea#instructions").val();
-        ingQty = $("input#ing-qty").val();
-        ingMsr = $("select#ing-measurement").children("option:selected").val(),
-        ingName = $("input#ing-name").val();
+    if (title === "" || description === "" || instructions === "") {
+        return;
+    } 
 
-        if (recipeName === "" || recipeDesc === "" || ingQty === "" || ingName === "" || instructions === "") {
+    let ingredientsArr = [];
+
+    for (let i = 0; i < ingRows; i++) {
+        
+        console.log("hit for loop");
+        ingQty = $("input#ing-qty-" + i + "").val();
+        ingMsr = $("select#ing-measurement-" + i + "").children("option:selected").val(),
+        ingName = $("input#ing-name-" + i + "").val();
+
+        if (ingQty === "" || ingMsr === "" || ingName === "") {
             return;
         } 
 
-        addRecipe(recipeName, recipeDesc, instructions, ingQty, ingMsr, ingName);
-        // addIngredients(ingQty, ingMsr, ingName);
-        
-        // clear form inputs
-        $("input#recipe-name").val("");
-        $("textarea#recipe-description").val("");
-        $("textarea#instructions").val("");
-        $("input#ing-qty").val("");
-        $("input#ing-name").val("");
-    })
+        ingredientsArr.push({
+            qty: ingQty,
+            measurement: ingMsr,
+            name: ingName
+        });
 
-    //! send newRecipe & newIngredients on submit
-    function addRecipe(title, description, instructions, ingQty, ingMsr, ingName) {
-
-        $.post("/api/add-recipe", {
-            title: title,
-            description: description,
-            instructions: instructions,
-            ingredients: [
-                { qty: ingQty,
-                 measurement: ingMsr,
-                 ingredient: ingName}
-            ]
-        })
-        .then(() => {
-            console.log("recipe added")
-        })
     }
-    
-    $("#add-ingredient").on("click", (data) => {
-        event.preventDefault();
 
-        let allRows = $(".ingredient-rows");
-        let newRow = `
-        <div class="field columns is-grouped">
-            <div class="control column">
-                <label class="label is-small">Qty</label>
-                <input class="input" type="input">
-            </div>
-            <div class="control column">
-                <label class="label is-small">Measurement</label>
-                <div class="select">
-                <select id="ing-measurement">
-                    <option>cups</option>
-                    <option>lbs</option>
-                    <option>oz</option>
-                    <option>pinch</option>
-                    <option>pints</option>
-                    <option>quarts</option>
-                    <option>tsp</option>
-                    <option>tbsp</option>
-                </select>
-                </div>
-            </div>
-            <div class="control column">
-                <label  class="label is-small">Ingredient Name</label>
-                <input class="input" type="input">
+
+    addRecipe(title, description, instructions, ingredientsArr);
+})
+
+//! send newRecipe & newIngredients on submit
+function addRecipe(title, description, instructions, ingredients) {
+
+    $.post("/api/add-recipe", {
+        title: title,
+        description: description,
+        instructions: instructions,
+        ingredients: ingredients
+    })
+    .then(() => {
+        res.redirect("/profile");
+    })
+}
+
+$("#add-ingredient").on("click", function() {
+    event.preventDefault();
+
+    let allRows = $(".ingredient-rows");
+    let newRow = `
+    <div class="field columns is-grouped">
+        <div class="control column">
+            <label class="label is-small">Qty</label>
+            <input id=ing-qty-` + ingRows + ` class="input" type="input">
+        </div>
+        <div class="control column">
+            <label class="label is-small">Measurement</label>
+            <div class="select">
+            <select id=ing-measurement-` + ingRows + `>
+                <option>cups</option>
+                <option>lbs</option>
+                <option>oz</option>
+                <option>pinch</option>
+                <option>pints</option>
+                <option>quarts</option>
+                <option>tsp</option>
+                <option>tbsp</option>
+            </select>
             </div>
         </div>
-        `;
+        <div class="control column">
+            <label  class="label is-small">Ingredient Name</label>
+            <input id=ing-name-`+ ingRows + ` class="input" type="input">
+        </div>
+        <button class="delete level-item">Delete</button>
+    </div>
+    `;
 
-        allRows.append(newRow);
-    })
+    allRows.append(newRow);
+    ingRows++;
+});
 
-
-    const fileInput = document.querySelector('#image-upload input[type=file]');
-    fileInput.onchange = () => {
-        if (fileInput.files.length > 0) {
-            const fileName = document.querySelector('#image-upload .file-name');
-            fileName.textContent = fileInput.files[0].name;
-        }
-    }
-
+$('body').on('click', 'button.delete', function() {
+    $(this).parent().remove();
 });

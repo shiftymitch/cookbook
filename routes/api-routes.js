@@ -56,13 +56,25 @@ module.exports = function (app) {
       UserId: req.user.id
     })
     .then(function (data) {
-      console.log('hit data: ', data);
-      return db.Ingredient.create({
-        qty: req.body.ingredients[0].qty,
-        measurement: req.body.ingredients[0].measurement,
-        ingredient: req.body.ingredients[0].ingredient,
-        RecipeId: data.dataValues.id
-      })
+      
+      let Array = [];
+      
+      for (let i = 0; i < req.body.ingredients.length; i++ ) {
+        
+        let qty = req.body.ingredients[i].qty;
+        let measurement = req.body.ingredients[i].measurement;
+        let name = req.body.ingredients[i].name;
+
+        Array.push({
+          qty: qty,
+          measurement: measurement,
+          name: name,
+          RecipeId: data.dataValues.id
+        })
+      }
+
+      db.Ingredient.bulkCreate(Array);
+
     }).then((data) => {
       console.log('hit', data);
       res.sendStatus(200);
@@ -74,18 +86,18 @@ module.exports = function (app) {
   });
 
   //! add-ingredient
-  app.post("/api/add-ingredient", function (req, res) {
-    db.Ingredient.create({
-      qty: req.body.qty,
-      measurement: req.body.measurement,
-      ingredient: req.body.ingredient
-    })
-    .then(function () {
+  // app.post("/api/add-ingredient", function (req, res) {
+  //   db.Ingredient.create({
+  //     qty: req.body.qty,
+  //     measurement: req.body.measurement,
+  //     ingredient: req.body.ingredient
+  //   })
+  //   .then(function () {
         
-      })
-      .catch(function (err) {
-        res.status(401).json(err);
-      });;
-  });
+  //     })
+  //     .catch(function (err) {
+  //       res.status(401).json(err);
+  //     });;
+  // });
 
 };
