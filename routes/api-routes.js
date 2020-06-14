@@ -49,7 +49,6 @@ module.exports = function (app) {
 
   //! add-recipe
   app.post("/api/add-recipe", function (req, res) {
-    console.log("req.user", req.body);
 
     db.Recipe.create({
       title: req.body.title,
@@ -78,8 +77,7 @@ module.exports = function (app) {
 
       db.Ingredient.bulkCreate(Array);
 
-    }).then((data) => {
-      console.log('hit', data);
+    }).then(() => {
       res.sendStatus(200);
     })
     .catch(function (err) {
@@ -92,15 +90,37 @@ module.exports = function (app) {
 
   app.get("/api/random-recipe", function (req, res) {
 
-    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4]
-    let key = keys[Math.floor(Math.random() * keys.length)]
+    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
+    
+    let key = keys[Math.floor(Math.random() * keys.length)];
 
     axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
       .then((response) => {
-        res.send(response.data)
+        res.send(response.data);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
+      })
+
+  });
+
+  //! api search-results query
+  let query = "";
+  app.post("/api/search-results", function (req, res) {
+    query = req.body.query;
+  });
+
+  app.get("/api/search-results", function (req, res) {
+    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
+
+    let key = keys[Math.floor(Math.random() * keys.length)];
+
+    axios.get("https://api.spoonacular.com/recipes/search?query=" + query + "&number=3&apiKey=" + key)
+      .then((response) => {
+        res.send(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       })
 
   });

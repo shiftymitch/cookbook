@@ -23,8 +23,7 @@ recipeSubmit.on("click", () => {
     let ingredientsArr = [];
 
     for (let i = 0; i < ingRows; i++) {
-        
-        console.log("hit for loop");
+
         ingQty = $("input#ing-qty-" + i + "").val();
         ingMsr = $("select#ing-measurement-" + i + "").children("option:selected").val(),
         ingName = $("input#ing-name-" + i + "").val();
@@ -54,8 +53,8 @@ function addRecipe(title, description, instructions, ingredients) {
         instructions: instructions,
         ingredients: ingredients
     })
-    .then(() => {
-        res.redirect("/profile");
+    .then(function () {
+        window.location.replace("/profile");
     })
 }
 
