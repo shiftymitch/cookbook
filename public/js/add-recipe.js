@@ -11,27 +11,26 @@ let ingRows = 1;
 
 //! get input values, then submit
 recipeSubmit.on("click", () => {
-    
+
     title = $("input#recipe-name").val();
     description = $("textarea#recipe-description").val();
     instructions = $("textarea#instructions").val();
 
     if (title === "" || description === "" || instructions === "") {
         return;
-    } 
+    }
 
     let ingredientsArr = [];
 
     for (let i = 0; i < ingRows; i++) {
-        
-        console.log("hit for loop");
+
         ingQty = $("input#ing-qty-" + i + "").val();
         ingMsr = $("select#ing-measurement-" + i + "").children("option:selected").val(),
-        ingName = $("input#ing-name-" + i + "").val();
+            ingName = $("input#ing-name-" + i + "").val();
 
         if (ingQty === "" || ingMsr === "" || ingName === "") {
             return;
-        } 
+        }
 
         ingredientsArr.push({
             qty: ingQty,
@@ -54,12 +53,12 @@ function addRecipe(title, description, instructions, ingredients) {
         instructions: instructions,
         ingredients: ingredients
     })
-    .then(() => {
-        res.redirect("/profile");
-    })
+        .then(() => {
+            window.location.replace("/profile");
+        })
 }
 
-$("#add-ingredient").on("click", function() {
+$("#add-ingredient").on("click", function () {
     event.preventDefault();
 
     let allRows = $(".ingredient-rows");
@@ -81,6 +80,7 @@ $("#add-ingredient").on("click", function() {
                 <option>quarts</option>
                 <option>tsp</option>
                 <option>tbsp</option>
+                <option>pieces</option>
             </select>
             </div>
         </div>
@@ -96,6 +96,6 @@ $("#add-ingredient").on("click", function() {
     ingRows++;
 });
 
-$('body').on('click', 'button.delete', function() {
+$('body').on('click', 'button.delete', function () {
     $(this).parent().remove();
 });

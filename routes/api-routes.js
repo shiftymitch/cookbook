@@ -2,7 +2,10 @@
 require("dotenv").config();
 const axios = require("axios")
 const db = require("../models");
+const moment = require("moment");
 const passport = require("../config/passport");
+const { Sequelize } = require("../models");
+const Op = Sequelize.Op;
 
 module.exports = function (app) {
 
@@ -58,34 +61,33 @@ module.exports = function (app) {
       UserId: req.user.id
     })
 
-    .then(function (data) {
-      
-      let Array = [];
-      
-      for (let i = 0; i < req.body.ingredients.length; i++ ) {
-        
-        let qty = req.body.ingredients[i].qty;
-        let measurement = req.body.ingredients[i].measurement;
-        let name = req.body.ingredients[i].name;
+      .then(function (data) {
 
-        Array.push({
-          qty: qty,
-          measurement: measurement,
-          name: name,
-          RecipeId: data.dataValues.id
-        })
-      }
+        let Array = [];
 
-      db.Ingredient.bulkCreate(Array);
+        for (let i = 0; i < req.body.ingredients.length; i++) {
 
-    }).then((data) => {
-      console.log('hit', data);
-      res.sendStatus(200);
-    })
-    .catch(function (err) {
-      console.log({err});
-      res.status(401).json(err);
-    });
+          let qty = req.body.ingredients[i].qty;
+          let measurement = req.body.ingredients[i].measurement;
+          let name = req.body.ingredients[i].name;
+
+          Array.push({
+            qty: qty,
+            measurement: measurement,
+            name: name,
+            RecipeId: data.dataValues.id
+          })
+        }
+
+        db.Ingredient.bulkCreate(Array);
+
+      }).then((data) => {
+        res.sendStatus(200);
+      })
+      .catch(function (err) {
+        console.log({ err });
+        res.status(401).json(err);
+      });
   });
 
   // Query 3rd party API and produce random recipe
@@ -103,5 +105,50 @@ module.exports = function (app) {
         console.log(error)
       })
 
+  });
+
+  // DB Search Route from Profile Page
+  app.post("/api/db_search", (req, res) => {
+    const searchTerm = req.body.dbSearchTerm;
+    console.log(searchTerm)
+
+    db.Recipe.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${searchTerm}%` } },
+          { description: { [Op.like]: `%${searchTerm}%` } }
+        ]
+      }
+    })
+      .then((dbResults) => {
+        let hbsObject = {
+          recipe: dbResults.map(recipe => {
+            return {
+              title: recipe.title,
+              description: recipe.description,
+              createdAt: () => {
+                return recipe.createdAt = moment().format("MMM Do YYYY");
+              }
+            }
+          })
+        };
+
+        if (hbsObject.recipe.length === 0) {
+          hbsObject = {
+            recipe: {
+              noRecipe: true
+            }
+          }
+        }
+
+        console.log(hbsObject.recipe)
+
+        res.render("search-results", {
+          recipe: hbsObject.recipe
+        });
+      })
+      .catch(err => {
+        console.log(err)
+      })
   });
 };
