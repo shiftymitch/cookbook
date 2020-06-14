@@ -106,49 +106,4 @@ module.exports = function (app) {
   //     })
 
   // });
-
-  // DB Search Route from Profile Page
-  app.post("/api/db_search", (req, res) => {
-    const searchTerm = req.body.dbSearchTerm;
-    console.log(searchTerm)
-
-    db.Recipe.findAll({
-      where: {
-        [Op.or]: [
-          { title: { [Op.like]: `%${searchTerm}%` } },
-          { description: { [Op.like]: `%${searchTerm}%` } }
-        ]
-      }
-    })
-      .then((dbResults) => {
-        let hbsObject = {
-          recipe: dbResults.map(recipe => {
-            return {
-              title: recipe.title,
-              description: recipe.description,
-              createdAt: () => {
-                return recipe.createdAt = moment().format("MMM Do YYYY");
-              }
-            }
-          })
-        };
-
-        if (hbsObject.recipe.length === 0) {
-          hbsObject = {
-            recipe: {
-              noRecipe: true
-            }
-          }
-        }
-
-        console.log(hbsObject.recipe)
-
-        res.render("search-results", {
-          recipe: hbsObject.recipe
-        });
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  });
 };

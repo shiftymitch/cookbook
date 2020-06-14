@@ -1,37 +1,17 @@
 <div class="container">
     <div class="columns is-centered">
         <div class="column is-7 is-offset-1">
-            {{!-- {{> searchResults-block}} --}}
-            <article class="media">
-                <figure class="media-left">
-                    <p class="image is-128x128">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="placeholder" width="128px">
-                    </p>
-                </figure>
-                <div class="media-content">
-                    <div class="content">
-                        <h2>{{title}}</h2>
-                        <p>
-                            <strong>{{title}}</strong>
-                            <br>
-                            <span>{{description}}</span>
-                        </p>
-                        <p>
-                            {{createdAt}}
-                        </p>
-                    </div>
-                </div>
-            </article>
+            {{> searchResults-block}}
         </div>
         {{!-- sidebar --}}
         <div class="column has-text-centered">
-            <img src="./img/spoons-sm-right.png" alt="spoons picture" class="is-hidden-mobile">
+            <img src="../img/spoons-sm-right.png" alt="spoons picture" class="is-hidden-mobile">
             <div class="search-options box m-t2">
                 <h3 class="is-size-5 m-t2">Search For Additional Recipes Here</h3>
                 <form class="level m-t1">
                     <input type="text" name="add-search" id="add-search" class="input">
                     <button class="button">
-                        <img src="./img/fe_search.svg" alt="search icon">
+                        <img src="../img/fe_search.svg" alt="search icon">
                     </button>
                 </form>
                 <h3 class="is-size-5 m-t2">Add A Recipe To The Community</h3>
