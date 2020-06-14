@@ -92,20 +92,20 @@ module.exports = function (app) {
 
   // Query 3rd party API and produce random recipe
 
-  app.get("/api/random-recipe", function (req, res) {
+  // app.get("/api/random-recipe", function (req, res) {
 
-    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4]
-    let key = keys[Math.floor(Math.random() * keys.length)]
+  //   let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4]
+  //   let key = keys[Math.floor(Math.random() * keys.length)]
 
-    axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
-      .then((response) => {
-        res.send(response.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  //   axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
+  //     .then((response) => {
+  //       res.send(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
 
-  });
+  // });
 
   // DB Search Route from Profile Page
   app.post("/api/db_search", (req, res) => {

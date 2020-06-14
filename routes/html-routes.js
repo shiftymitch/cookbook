@@ -75,7 +75,7 @@ module.exports = function (app) {
   });
 
   // Display search results
-  // app.get("/search-results", isAuthenticated, function (req, res) {
-  //   res.render("search-results")
-  // });
+  app.get("/search-results", isAuthenticated, function (req, res) {
+    res.render("search-results")
+  });
 };

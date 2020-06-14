@@ -10,7 +10,7 @@ dbSearchBtn.addEventListener("click", (event) => {
     fetch("/api/db_search", { method: "POST", body: JSON.stringify(dbSearchValue), headers: { 'Content-Type': 'application/json' } })
         .then(() => {
             console.log("Search Submitted")
-            // window.location.replace(`/search-results`);
+            window.location.replace(`/search-results`);
         })
         .catch(err => console.log(err))
 });
