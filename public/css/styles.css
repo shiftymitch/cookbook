@@ -33,6 +33,12 @@ body {
   height: 30px;
 }
 
+/* API Search Results */
+.search-img {
+  max-height: 128px;
+  max-width: 128px;
+}
+
 /* Recipe Page CSS */
 #recipe-content {
   margin-top: 40px;
