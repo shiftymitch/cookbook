@@ -40,7 +40,8 @@ module.exports = function (app) {
     db.Recipe.findAll({
       where: {
         UserId: req.user.id
-      }
+      },
+      include: [db.Image]
     }).then(function (dbRecipe) {
 
       let hbsObject = {
@@ -50,7 +51,8 @@ module.exports = function (app) {
             description: recipe.description,
             createdAt: () => {
               return recipe.createdAt = moment().format("MMM Do YYYY");
-            }
+            },
+            image: `/img/avatars/${Math.floor(Math.random() * 10 +1)}.png`
           }
         })
       };

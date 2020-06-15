@@ -79,16 +79,20 @@ module.exports = function (app) {
       }
 
       db.Ingredient.bulkCreate(Array);
-      
-      let imageData = fs.readFileSync(__dirname + "../public/img/tmp/" + req.body.image);
 
-      db.Image.create({
-        data: imageData
-      }).then(image => {
-          fs.writeFile(__dirname + req.body.image, image.dataValues.data);
-      }).catch(error => {
-          console.log(error);
-      })
+      // let avatarNumber = Math.floor(Math.random() * 10 + 1);
+      
+      // let imageData = fs.readFileSync(path.join(__dirname, "../public/img/avatars/", JSON.stringify(avatarNumber))+ ".png");
+
+      // console.log(imageData);
+
+      // db.Image.create({
+      //   data: imageData
+      // }).then(image => {
+      //     fs.writeFile(path.join(__dirname, req.body.image), image.dataValues.data);
+      // }).catch(error => {
+      //     console.log(error);
+      // })
 
     }).then(() => {
       res.sendStatus(200);
