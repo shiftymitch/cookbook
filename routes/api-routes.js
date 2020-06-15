@@ -91,36 +91,60 @@ module.exports = function (app) {
 
   // Query 3rd party API and produce random recipe
 
-  app.get("/api/random-recipe", function (req, res) {
+  // app.get("/api/random-recipe", function (req, res) {
 
-    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
+  //   let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
 
-    let key = keys[Math.floor(Math.random() * keys.length)];
+  //   let key = keys[Math.floor(Math.random() * keys.length)];
 
-    axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
-      .then((response) => {
-        res.send(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-
-  });
+  //   axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
+  //     .then((response) => {
+  //       res.send(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  // });
 
   //! api search-results query
-  let query = "";
-  app.post("/api/results", function (req, res) {
-    query = req.body.query;
-  });
+  // let query = "";
+  // app.post("/api/results", function (req, res) {
+  //   query = req.body.query;
+  //   console.log('query1', query)
+  // });
+  // console.log('query2', query)
 
-  app.get("/api/results", function (req, res) {
+  app.get("/api/results/:query", function (req, res) {
     let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
 
     let key = keys[Math.floor(Math.random() * keys.length)];
+
+    console.log('query', req.params.query)
+    const query = req.params.query;
 
     axios.get("https://api.spoonacular.com/recipes/search?query=" + query + "&number=3&apiKey=" + key)
       .then((response) => {
-        res.send(response.data);
+        const results = response.data.results;
+        const baseURI = response.data.baseUri;
+
+        let hbsObject = {
+          recipe: results.map(results => {
+            return {
+              id: results.id,
+              title: results.title,
+              readyTime: results.readyInMinutes,
+              servings: results.servings,
+              url: results.sourceUrl,
+              image: `${baseURI}${results.image}`
+            }
+          })
+        };
+
+        console.log(hbsObject)
+
+        res.render("results", {
+          recipe: hbsObject.recipe
+        });
       })
       .catch((error) => {
         console.log(error);

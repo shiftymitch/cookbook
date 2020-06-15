@@ -9,7 +9,6 @@ dbSearchBtn.addEventListener("click", (event) => {
 
     fetch(`/api/search-results/${dbSearchValue}`)
         .then(() => {
-            console.log("Search Submitted")
             window.location.replace(`/search-results/${dbSearchValue}`);
         })
         .catch(err => console.log(err))

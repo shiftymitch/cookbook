@@ -1,4 +1,5 @@
 // Requiring path to so we can use relative routes to our HTML files
+const axios = require("axios")
 const path = require("path");
 const db = require("../models");
 const moment = require("moment");
@@ -79,7 +80,6 @@ module.exports = function (app) {
   // Display search results
   app.get("/search-results/:searchTerm", isAuthenticated, function (req, res) {
     const searchTerm = req.params.searchTerm;
-    console.log(searchTerm)
 
     db.Recipe.findAll({
       where: {
@@ -109,8 +109,6 @@ module.exports = function (app) {
             }
           }
         }
-
-        console.log(hbsObject.recipe)
 
         res.render("search-results", {
           recipe: hbsObject.recipe
