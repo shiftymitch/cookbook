@@ -1,6 +1,4 @@
 // Requiring path to so we can use relative routes to our HTML files
-const axios = require("axios")
-const path = require("path");
 const db = require("../models");
 const moment = require("moment");
 const { Sequelize } = require("../models");

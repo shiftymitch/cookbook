@@ -2,10 +2,7 @@
 require("dotenv").config();
 const axios = require("axios")
 const db = require("../models");
-const moment = require("moment");
 const passport = require("../config/passport");
-const { Sequelize } = require("../models");
-const Op = Sequelize.Op;
 
 module.exports = function (app) {
 
