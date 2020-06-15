@@ -1,57 +1,146 @@
-# Project 2
+### Project Name
 
-## Application Requirements
+# Cookbook
 
-- Must use a Node and Express server
+![cookbook-screenshot](https://user-images.githubusercontent.com/4752937/84712609-3cafe580-af26-11ea-8364-01512cd9cfe3.png)
 
-- Must use Handlebars.js as the template engine
+---
 
-- Must be backed by a MySQL database with a Sequelize ORM
+### Table of Contents
 
-- Must utilize both GET and POST routes for retrieving and adding new data
+Your section headers will be used to reference location of destination.
 
-- Must be deployed using Heroku (with data)
+- [Description](#description)
+- [How to Use](#how-to-use)
+- [Installation](#installation)
+- [Technologies](#technologies)
+- [Roadmap](#roadmap)
+- [Code Samples](#code-samples)
+- [License](#license)
+- [Contributors](#contributors)
 
-- Must utilize at least one new library, package, or technology that we haven’t discussed
+---
 
-- Must have a polished front end/UI
+## Description
 
-- Must have a folder structure that meets the MVC paradigm
+Cookbook is a community driven recipe database, which gives users the ability to sign-up, submit recipes, search for community recipes, and search a larger 3rd party database.
 
-- Must meet good quality coding standards (indentation, scoping, naming)
+Cookbook skips the unnecessary and presents straight-forward recipes, including name, photo, ingredients, and instructions. No filler, no life-story needed.
 
-- Must protect API keys in Node with environment variables
+Our app is purpose-built from recipe submission to display to provide only the information you need to go from grocery store to kitchen.
 
-## Presentation Requirements
+---
 
-Use this [project presentation template](https://docs.google.com/presentation/d/1_u8TKy5zW5UlrVQVnyDEZ0unGI2tjQPDEpA0FNuBKAw/edit?usp=sharing) to address the following:
+## How to Use
 
-- Elevator pitch: a one minute description of your application
+Simply open the application in any browser. Once the page is loaded, signup, login, and begin adding and searching for recipes. Cookbook is community-driven, so why not share your favorite recipes!
 
-- Concept: What is your user story? What was your motivation for development?
+---
 
-- Process: What were the technologies used? How were tasks and roles broken down and assigned? What challenges did you encounter? What were your successes?
+#### Installation
 
-- Demo: Show your stuff!
+Cookbook is live [here](https://the-cookbook-app.herokuapp.com/)
 
-- Directions for Future Development
+---
 
-- Links to to the deployed application and the GitHub repository
+#### Technologies
 
-## Grading Metrics
+[Axios](https://www.npmjs.com/package/axios)\
+[Bulma](https://bulma.io/)\
+[dotenv](https://www.npmjs.com/package/dotenv)\
+[Express](https://expressjs.com/)\
+[Handlebars](https://handlebarsjs.com/)\
+[Moment.js](https://momentjs.com/)\
+[multer](https://www.npmjs.com/package/multer)\
+[MySQL](https://www.mysql.com/)\
+[Node.js](https://nodejs.org/en/)\
+[Passport.js](http://www.passportjs.org/)\
+[Sequelize](https://sequelize.org/)\
+[spoonacular API](https://spoonacular.com/food-api)
 
-| Metric        | Weight |
-| ------------- | ------ |
-| Concept       | 10%    |
-| Design        | 20%    |
-| Functionality | 30%    |
-| Collaboration | 30%    |
-| Presentation  | 10%    |
+---
 
-## Submission on BCS
+### Roadmap
 
-You are required to submit the following:
+Future improvements for the application:
+- Users can edit or delete their recipes
+- Users can favorite a recipe to easily access from their profile
+- Smoother page load when executing/utilizing API calls
 
-- The URL of the deployed application
+---
 
-- The URL of the GitHub repository
+#### Code Samples
+
+Routes returning a user recipe or spoonacular API random recipes:
+
+```javascript
+app.get("/recipe/:id", function (req, res) {
+    const searchId = req.params.id;
+
+    db.Recipe.findOne({
+      where: { id: searchId },
+      include: db.Ingredient
+    })
+      .then((dbResult) => {
+        console.log(dbResult.dataValues)
+        const recipe = dbResult.dataValues;
+        let hbsObject = {
+          recipe: {
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            instructions: recipe.instructions,
+            createdAt: () => {
+              return recipe.createdAt = moment().format("MMM Do YYYY");
+            },
+            ingredients: recipe.Ingredients.map(ingredient => {
+              return {
+                name: ingredient.name,
+                qty: ingredient.qty,
+                measurement: ingredient.measurement
+              }
+            })
+          }
+        };
+
+        res.render("recipe", {
+          recipe: hbsObject.recipe
+        })
+      })
+      .catch(err => console.log(err))
+  });
+```
+
+```javascript
+app.get("/api/random-recipe", function (req, res) {
+
+    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
+
+    let key = keys[Math.floor(Math.random() * keys.length)];
+
+    axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
+      .then((response) => {
+        res.send(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+```
+
+---
+
+## License
+
+MIT © [shiftymitch](https://github.com/shiftymitch), [nvalline](https://github.com/nvalline), [nabeek](https://github.com/nabeek)
+
+---
+
+## Contributors
+
+| Developer | GitHub |
+| ------ | ------ |
+| Mitch Henderson | [shiftymitch](https://github.com/shiftymitch) |
+| Nate Valline | [nvalline](https://github.com/nvalline) |
+| Nick Beekhuizen | [nabeek](https://github.com/nabeek) |
+
+[Back to the Top](#project-name)
