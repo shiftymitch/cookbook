@@ -1,25 +1,22 @@
 <div class="container">
     <div class="columns is-centered">
         <div class="column is-7 is-offset-1">
-            <h2 class="is-size-4 m-t2 m-b1">Search Results</h2>
-            {{!-- recipe result block --}}
-            <div id="recipes-container">
-                {{!-- recipe feed --}}
-            </div>
+            {{> searchResults-block}}
         </div>
         {{!-- sidebar --}}
         <div class="column has-text-centered">
-            <img src="./img/spoons-sm-right.png" alt="spoons picture" class="is-hidden-mobile">
+            <img src="../img/spoons-sm-right.png" alt="spoons picture" class="is-hidden-mobile">
             <div class="search-options box m-t2">
                 <h3 class="is-size-5 m-t2">Search For Additional Recipes Here</h3>
                 <form class="level m-t1">
                     <input type="text" name="add-search" id="add-search" class="input">
                     <button id="search-button" class="button">
-                        <img src="./img/fe_search.svg" alt="search icon">
+                        <img src="../img/fe_search.svg" alt="search icon">
                     </button>
                 </form>
                 <h3 class="is-size-5 m-t2">Add A Recipe To The Community</h3>
-                <button class="button is-peach is-medium m-t1 m-b2">Click To Add</button>
+                <button class="button is-peach is-medium m-t1 m-b2" onclick="location.href='/add-recipe'">Click To
+                    Add</button>
             </div>
         </div>
     </div>

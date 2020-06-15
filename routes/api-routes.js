@@ -57,33 +57,33 @@ module.exports = function (app) {
       UserId: req.user.id
     })
 
-    .then(function (data) {
-      
-      let Array = [];
-      
-      for (let i = 0; i < req.body.ingredients.length; i++ ) {
-        
-        let qty = req.body.ingredients[i].qty;
-        let measurement = req.body.ingredients[i].measurement;
-        let name = req.body.ingredients[i].name;
+      .then(function (data) {
 
-        Array.push({
-          qty: qty,
-          measurement: measurement,
-          name: name,
-          RecipeId: data.dataValues.id
-        })
-      }
+        let Array = [];
 
-      db.Ingredient.bulkCreate(Array);
+        for (let i = 0; i < req.body.ingredients.length; i++) {
 
-    }).then(() => {
-      res.sendStatus(200);
-    })
-    .catch(function (err) {
-      console.log({err});
-      res.status(401).json(err);
-    });
+          let qty = req.body.ingredients[i].qty;
+          let measurement = req.body.ingredients[i].measurement;
+          let name = req.body.ingredients[i].name;
+
+          Array.push({
+            qty: qty,
+            measurement: measurement,
+            name: name,
+            RecipeId: data.dataValues.id
+          })
+        }
+
+        db.Ingredient.bulkCreate(Array);
+
+      }).then(() => {
+        res.sendStatus(200);
+      })
+      .catch(function (err) {
+        console.log({ err });
+        res.status(401).json(err);
+      });
   });
 
   // Query 3rd party API and produce random recipe
@@ -91,7 +91,7 @@ module.exports = function (app) {
   app.get("/api/random-recipe", function (req, res) {
 
     let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
-    
+
     let key = keys[Math.floor(Math.random() * keys.length)];
 
     axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
@@ -101,23 +101,37 @@ module.exports = function (app) {
       .catch((error) => {
         console.log(error);
       })
-
   });
 
   //! api search-results query
-  let query = "";
-  app.post("/api/search-results", function (req, res) {
-    query = req.body.query;
-  });
-
-  app.get("/api/search-results", function (req, res) {
+  app.get("/api/results/:query", function (req, res) {
     let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
 
     let key = keys[Math.floor(Math.random() * keys.length)];
 
+    const query = req.params.query;
+
     axios.get("https://api.spoonacular.com/recipes/search?query=" + query + "&number=3&apiKey=" + key)
       .then((response) => {
-        res.send(response.data);
+        const results = response.data.results;
+        const baseURI = response.data.baseUri;
+
+        let hbsObject = {
+          recipe: results.map(results => {
+            return {
+              id: results.id,
+              title: results.title,
+              readyTime: results.readyInMinutes,
+              servings: results.servings,
+              url: results.sourceUrl,
+              image: `${baseURI}${results.image}`
+            }
+          })
+        };
+
+        res.render("results", {
+          recipe: hbsObject.recipe
+        });
       })
       .catch((error) => {
         console.log(error);
