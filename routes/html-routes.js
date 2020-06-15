@@ -1,5 +1,6 @@
 // Requiring path to so we can use relative routes to our HTML files
 const path = require("path");
+const axios = require("axios");
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -46,5 +47,9 @@ module.exports = function (app) {
   // Display search results
   app.get("/search-results", isAuthenticated, function (req, res) {
     res.render("search-results")
+  });
+
+  app.get("/spoon-recipe/:id", function (req, res) {
+    res.render("recipe");
   });
 };

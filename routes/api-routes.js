@@ -106,4 +106,22 @@ module.exports = function (app) {
       })
 
   });
+
+  app.post("/api/spoon-recipe/:id", function (req, res) {
+    spoonID = req.body.spoonID;
+  });
+
+  app.get("/api/spoon-recipe/:id", function (req, res) {
+
+    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4]
+    let key = keys[Math.floor(Math.random() * keys.length)]
+
+    axios.get(`https://api.spoonacular.com/recipes/${spoonID}/information?includeNutrition=false&apiKey=` + key)
+      .then((response) => {
+        res.send(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
 };
