@@ -5,7 +5,6 @@ $(document).ready(function () {
   // Get random recipes from 3rd party API and use data for homepage
   function getSpoonRecipe() {
     $.get("/api/spoon-recipe/:id").then(function (data) {
-      console.log(data)
 
       $("#recipe-page-ingredient-list").empty();
       $("#date-line").remove();
