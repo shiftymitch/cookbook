@@ -1,75 +1,77 @@
-<div class="container">
-  <div class="columns is-centered has-text-centered is-vcentered">
+<section class="hero is-fullheight">
+  <div class="hero-body index-padding">
+    <div class="container">
+      <div class="columns is-centered has-text-centered is-vcentered">
 
-    {{!-- image --}}
-    <div class="column is-6">
-      <img id="chef-add-recipe" src="/img/chef-add-recipe.png" alt="">
-    </div>
-
-    {{!-- form --}}
-    <div id="add-recipe-form" class="column is-6">
-      <h1>Enter Your Complete Recipe Below.</h1>
-      <br>
-      <div class="field">
-        <label class="label">Recipe Name</label>
-        <div class="control">
-          <input id="recipe-name" class="input" type="text" placeholder="Name..." value="">
+        {{!-- image --}}
+        <div class="column is-6">
+          <img id="chef-add-recipe" src="/img/chef-add-recipe.png" alt="">
         </div>
-      </div>
 
-      <div class="field">
-        <label class="label">Recipe Description</label>
-        <div class="control">
-          <textarea id="recipe-description" class="textarea" type="text"
-            placeholder="Enter a short description..."></textarea>
-        </div>
-      </div>
-
-      <label class="label">Ingredients</label>
-      <div class="ingredient-rows">
-        <div class="field columns is-grouped">
-          <div class="control column">
-            <label class="label is-small">Qty</label>
-            <input id="ing-qty-0" class="input" type="input" value="" placeholder="0.00">
-          </div>
-          <div class="control column">
-            <label class="label is-small">Measurement</label>
-            <div class="select">
-              <select id="ing-measurement-0">
-                <option>cups</option>
-                <option>lbs</option>
-                <option>oz</option>
-                <option>pinch</option>
-                <option>pints</option>
-                <option>quarts</option>
-                <option>tsp</option>
-                <option>tbsp</option>
-                <option>pieces</option>
-              </select>
+        {{!-- form --}}
+        <div id="add-recipe-form" class="column is-6">
+          <h1>Enter Your Complete Recipe Below.</h1>
+          <br>
+          <div class="field">
+            <label class="label">Recipe Name</label>
+            <div class="control">
+              <input id="recipe-name" class="input" type="text" placeholder="Name..." value="">
             </div>
           </div>
-          <div class="level control column">
-            <label class="label is-small">Ingredient Name</label>
-            <input id="ing-name-0" class="level-item input" type="input" value="">
+
+          <div class="field">
+            <label class="label">Recipe Description</label>
+            <div class="control">
+              <textarea id="recipe-description" class="textarea" type="text"
+                placeholder="Enter a short description..."></textarea>
+            </div>
           </div>
-          <button class="delete level-item">Delete</button>
-        </div>
-      </div>
 
-      <div id="new-ingredient" class="has-text-right">
-        <a id="add-ingredient">Add Ingredient</a>
-      </div>
+          <label class="label">Ingredients</label>
+          <div class="ingredient-rows">
+            <div class="field columns is-grouped">
+              <div class="control column">
+                <label class="label is-small">Qty</label>
+                <input id="ing-qty-0" class="input" type="input" value="" placeholder="0.00">
+              </div>
+              <div class="control column">
+                <label class="label is-small">Measurement</label>
+                <div class="select">
+                  <select id="ing-measurement-0">
+                    <option>cups</option>
+                    <option>lbs</option>
+                    <option>oz</option>
+                    <option>pinch</option>
+                    <option>pints</option>
+                    <option>quarts</option>
+                    <option>tsp</option>
+                    <option>tbsp</option>
+                    <option>pieces</option>
+                  </select>
+                </div>
+              </div>
+              <div class="level control column">
+                <label class="label is-small">Ingredient Name</label>
+                <input id="ing-name-0" class="level-item input" type="input" value="">
+              </div>
+              <button class="delete level-item">Delete</button>
+            </div>
+          </div>
 
-      <div class="field">
-        <label class="label">Instructions</label>
-        <div class="control">
-          <textarea id="instructions" class="textarea" placeholder="Step by step instructions..."></textarea>
-        </div>
-      </div>
+          <div id="new-ingredient" class="has-text-right">
+            <a id="add-ingredient">Add Ingredient</a>
+          </div>
+
+          <div class="field">
+            <label class="label">Instructions</label>
+            <div class="control">
+              <textarea id="instructions" class="textarea" placeholder="Step by step instructions..."></textarea>
+            </div>
+          </div>
 
 
-      {{!-- Image Upload --}}
-      {{!-- 
+          {{!-- Image Upload --}}
+          {{!-- 
       <div class="field">
         <br>
 
@@ -93,15 +95,17 @@
         </div>
       </div> --}}
 
-      <div class="field">
-        <div class="control level-right">
-          <button id="recipe-submit" class="button is-link">Submit Recipe</button>
+          <div class="field">
+            <div class="control level-right">
+              <button id="recipe-submit" class="button is-link">Submit Recipe</button>
+            </div>
+          </div>
+
         </div>
       </div>
-
     </div>
   </div>
-</div>
+</section>
 
 {{!-- image upload script --}}
 <script>

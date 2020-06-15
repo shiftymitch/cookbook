@@ -138,3 +138,8 @@ body {
 .image.is-128x128 {
   max-height: 128px;
 }
+
+#repo-link:hover {
+  cursor: pointer;
+  color: #3273dc;
+}

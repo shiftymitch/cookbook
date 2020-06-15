@@ -7,13 +7,13 @@ $(document).ready(function () {
     $.get("/api/spoon-recipe/:id").then(function (data) {
       console.log(data)
 
-      $("#ingredient-list").empty();
+      $("#recipe-page-ingredient-list").empty();
       $("#date-line").remove();
-      $("#recipe-instructions").nextAll().remove();
+      $("#recipe-page-instructions").nextAll().remove();
 
-      $("#recipe-name").text(data.title);
-      $("#recipe-description").html(data.summary);
-      $("#recipe-picture").attr({
+      $("#recipe-page-name").text(data.title);
+      $("#recipe-page-description").html(data.summary);
+      $("#recipe-page-picture").attr({
         src: data.image,
         alt: data.title
       });
@@ -25,7 +25,7 @@ $(document).ready(function () {
         let stepText = data.analyzedInstructions[0].steps[i].step
 
         let nextInstruction = `<p class="is-size-6">${stepNumber}. ${stepText}</p>`
-        $("#recipe-instructions").append(nextInstruction)
+        $("#recipe-page-instructions").append(nextInstruction)
 
       }
 
@@ -35,7 +35,7 @@ $(document).ready(function () {
         let nextIngredient = `<li>
         <p>${ingredient}</p>
         </li>`
-        $("#ingredient-list").append(nextIngredient)
+        $("#recipe-page-ingredient-list").append(nextIngredient)
 
       }
     })
