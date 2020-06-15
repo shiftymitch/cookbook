@@ -3,6 +3,9 @@ require("dotenv").config();
 const axios = require("axios")
 const db = require("../models");
 const passport = require("../config/passport");
+const fs = require("fs");
+const path = require("path");
+const { dirname } = require("path");
 
 module.exports = function (app) {
 
@@ -76,6 +79,16 @@ module.exports = function (app) {
       }
 
       db.Ingredient.bulkCreate(Array);
+      
+      let imageData = fs.readFileSync(__dirname + '/static/assets/images/jsa-header.png');
+
+      db.Image.create({
+        data: req.body.image
+      }).then(image => {
+          fs.writeFile(path.join(__dirname, "../public/img/tmp/"), image.dataValues.data);
+      }).catch(error => {
+          console.log(error);
+      })
 
     }).then(() => {
       res.sendStatus(200);
@@ -88,21 +101,21 @@ module.exports = function (app) {
 
   // Query 3rd party API and produce random recipe
 
-  app.get("/api/random-recipe", function (req, res) {
+  // app.get("/api/random-recipe", function (req, res) {
 
-    let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
+  //   let keys = [process.env.SPOON_API_KEY_1, process.env.SPOON_API_KEY_2, process.env.SPOON_API_KEY_3, process.env.SPOON_API_KEY_4];
     
-    let key = keys[Math.floor(Math.random() * keys.length)];
+  //   let key = keys[Math.floor(Math.random() * keys.length)];
 
-    axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
-      .then((response) => {
-        res.send(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+  //   axios.get("https://api.spoonacular.com/recipes/random?number=2&tags=dinner&apiKey=" + key)
+  //     .then((response) => {
+  //       res.send(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
 
-  });
+  // });
 
   //! api search-results query
   let query = "";

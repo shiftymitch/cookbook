@@ -36,6 +36,9 @@ module.exports = function (sequelize, DataTypes) {
             
         });
 
+        Recipe.hasMany(models.Image, {
+
+        });
       };
 
     

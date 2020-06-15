@@ -52,4 +52,8 @@ $(document).ready(function () {
             }
         });       
     });
+
+    $("#add-recipe").on("click", function() {
+        window.location.replace("/add-recipe");
+    })
 });

@@ -6,6 +6,7 @@ let ingMsr = "";
 let ingName = "";
 let instructions = "";
 let imgUploadBtn = $("input#img-upload");
+let image = "";
 let recipeSubmit = $("button#recipe-submit");
 let ingRows = 1;
 
@@ -15,8 +16,9 @@ recipeSubmit.on("click", () => {
     title = $("input#recipe-name").val();
     description = $("textarea#recipe-description").val();
     instructions = $("textarea#instructions").val();
+    image = $(".file-name").html();
 
-    if (title === "" || description === "" || instructions === "") {
+    if (title === "" || description === "" || instructions === "" || image === "") {
         return;
     } 
 
@@ -41,17 +43,18 @@ recipeSubmit.on("click", () => {
     }
 
 
-    addRecipe(title, description, instructions, ingredientsArr);
+    addRecipe(title, description, instructions, ingredientsArr, image);
 })
 
 //! send newRecipe & newIngredients on submit
-function addRecipe(title, description, instructions, ingredients) {
+function addRecipe(title, description, instructions, ingredients, image) {
 
     $.post("/api/add-recipe", {
         title: title,
         description: description,
         instructions: instructions,
-        ingredients: ingredients
+        ingredients: ingredients,
+        image: image
     })
     .then(function () {
         window.location.replace("/profile");
