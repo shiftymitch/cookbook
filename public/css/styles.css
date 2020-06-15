@@ -2,8 +2,18 @@ body {
   color: #18335e;
 }
 
-.hero-body {
+.navbar-logo img {
+  width: 250px;
+  padding: 20px;
+}
+
+.index-padding {
   padding-top: 0;
+  flex-grow: 0;
+}
+
+.login-padding {
+  padding-top: 50px;
   flex-grow: 0;
 }
 
