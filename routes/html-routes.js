@@ -1,7 +1,8 @@
 // Requiring path to so we can use relative routes to our HTML files
-const path = require("path");
 const db = require("../models");
 const moment = require("moment");
+const { Sequelize } = require("../models");
+const Op = Sequelize.Op;
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -75,7 +76,48 @@ module.exports = function (app) {
   });
 
   // Display search results
-  app.get("/search-results", isAuthenticated, function (req, res) {
-    res.render("search-results")
+  app.get("/search-results/:searchTerm", isAuthenticated, function (req, res) {
+    const searchTerm = req.params.searchTerm;
+
+    db.Recipe.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${searchTerm}%` } },
+          { description: { [Op.like]: `%${searchTerm}%` } }
+        ]
+      }
+    })
+      .then((dbResults) => {
+        let hbsObject = {
+          recipe: dbResults.map(recipe => {
+            return {
+              title: recipe.title,
+              description: recipe.description,
+              createdAt: () => {
+                return recipe.createdAt = moment().format("MMM Do YYYY");
+              }
+            }
+          })
+        };
+
+        if (hbsObject.recipe.length === 0) {
+          hbsObject = {
+            recipe: {
+              noRecipe: true
+            }
+          }
+        }
+
+        res.render("search-results", {
+          recipe: hbsObject.recipe
+        });
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  });
+
+  app.get("/spoon-recipe/:id", function (req, res) {
+    res.render("recipe");
   });
 };
