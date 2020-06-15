@@ -43,6 +43,7 @@ module.exports = function (app) {
       let hbsObject = {
         recipe: dbRecipe.map(recipe => {
           return {
+            id: recipe.id,
             title: recipe.title,
             description: recipe.description,
             createdAt: () => {
@@ -64,11 +65,6 @@ module.exports = function (app) {
         recipe: hbsObject.recipe
       });
     })
-  });
-
-  // serve recipe page 
-  app.get("/recipe", function (req, res) {
-    res.render("recipe");
   });
 
   app.get("/add-recipe", isAuthenticated, function (req, res) {
@@ -120,5 +116,41 @@ module.exports = function (app) {
 
   app.get("/spoon-recipe/:id", function (req, res) {
     res.render("spoon-recipe");
+  });
+
+  app.get("/recipe/:id", function (req, res) {
+    const searchId = req.params.id;
+
+    db.Recipe.findOne({
+      where: { id: searchId },
+      include: db.Ingredient
+    })
+      .then((dbResult) => {
+        console.log(dbResult.dataValues)
+        const recipe = dbResult.dataValues;
+        let hbsObject = {
+          recipe: {
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            instructions: recipe.instructions,
+            createdAt: () => {
+              return recipe.createdAt = moment().format("MMM Do YYYY");
+            },
+            ingredients: recipe.Ingredients.map(ingredient => {
+              return {
+                name: ingredient.name,
+                qty: ingredient.qty,
+                measurement: ingredient.measurement
+              }
+            })
+          }
+        };
+
+        res.render("recipe", {
+          recipe: hbsObject.recipe
+        })
+      })
+      .catch(err => console.log(err))
   });
 };
