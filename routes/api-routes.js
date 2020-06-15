@@ -80,12 +80,12 @@ module.exports = function (app) {
 
       db.Ingredient.bulkCreate(Array);
       
-      let imageData = fs.readFileSync(__dirname + '/static/assets/images/jsa-header.png');
+      let imageData = fs.readFileSync(__dirname + "../public/img/tmp/" + req.body.image);
 
       db.Image.create({
-        data: req.body.image
+        data: imageData
       }).then(image => {
-          fs.writeFile(path.join(__dirname, "../public/img/tmp/"), image.dataValues.data);
+          fs.writeFile(__dirname + req.body.image, image.dataValues.data);
       }).catch(error => {
           console.log(error);
       })
