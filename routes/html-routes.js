@@ -119,6 +119,6 @@ module.exports = function (app) {
   });
 
   app.get("/spoon-recipe/:id", function (req, res) {
-    res.render("recipe");
+    res.render("spoon-recipe");
   });
 };
