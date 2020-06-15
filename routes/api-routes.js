@@ -139,6 +139,8 @@ module.exports = function (app) {
 
   });
 
+  let spoonID;
+
   app.post("/api/spoon-recipe/:id", function (req, res) {
     spoonID = req.body.spoonID;
   });
