@@ -53,7 +53,7 @@ function addRecipe(title, description, instructions, ingredients) {
         instructions: instructions,
         ingredients: ingredients
     })
-        .then(() => {
+        .then(function () {
             window.location.replace("/profile");
         })
 }

@@ -109,3 +109,7 @@ body {
 #add-recipe-form {
   padding: 40px;
 }
+
+.image.is-128x128 {
+  max-height: 128px;
+}
