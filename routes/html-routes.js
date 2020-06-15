@@ -91,6 +91,7 @@ module.exports = function (app) {
         let hbsObject = {
           recipe: dbResults.map(recipe => {
             return {
+              id: recipe.id,
               title: recipe.title,
               description: recipe.description,
               createdAt: () => {
