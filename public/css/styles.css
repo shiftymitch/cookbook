@@ -2,6 +2,15 @@ body {
   color: #18335e;
 }
 
+.hero-body {
+  padding-top: 0;
+  flex-grow: 0;
+}
+
+.create {
+  padding-top: 50px;
+}
+
 /* Header CSS */
 .navbar {
   background-color: #ececec;
@@ -104,4 +113,12 @@ body {
 
 .label {
   text-align: left;
+}
+
+#add-recipe-form {
+  padding: 40px;
+}
+
+.image.is-128x128 {
+  max-height: 128px;
 }
