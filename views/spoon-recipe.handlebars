@@ -1,0 +1,77 @@
+<section class="hero is-fullheight">
+    <div class="hero-body index-padding">
+        <div class="container">
+            <div class="columns is-centered is-10">
+                <div class="column is-6 is-offset-1" id="recipe-content">
+                    <h2 id="recipe-page-name" class="is-size-3">Recipe Name</h2>
+                    <div id="recipe-page-description">
+
+                    </div>
+                </div>
+                <div class="column">
+                    <img src="../img/spoons-sm-right.png" alt="spoons picture">
+                </div>
+            </div>
+            <div class="columns is-centered is-10">
+                <div class="column is-2">
+                    <img id="recipe-page-picture" src="" alt="">
+                    <p class="is-size-5">Ingredients</p>
+                    <ul id="recipe-page-ingredient-list">
+
+                    </ul>
+                    <p id="date-line">Added: <span id="date-added">06/21/2019</span></p>
+                </div>
+                <div class="column is-8">
+                    <p id="recipe-page-instructions" class="is-size-5">Instructions</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+
+        getSpoonRecipe()
+
+        // Get random recipes from 3rd party API and use data for homepage
+        function getSpoonRecipe() {
+            $.get("/api/spoon-recipe/:id").then(function (data) {
+
+                $("#recipe-page-ingredient-list").empty();
+                $("#date-line").remove();
+                $("#recipe-page-instructions").nextAll().remove();
+
+                $("#recipe-page-name").text(data.title);
+                $("#recipe-page-description").html(data.summary);
+                $("#recipe-page-picture").attr({
+                    src: data.image,
+                    alt: data.title
+                });
+
+                let cookingSteps = data.analyzedInstructions[0].steps
+
+                for (i = 0; i < cookingSteps.length; i++) {
+                    let stepNumber = data.analyzedInstructions[0].steps[i].number
+                    let stepText = data.analyzedInstructions[0].steps[i].step
+
+                    let nextInstruction = `<p class="is-size-6">${stepNumber}. ${stepText}</p>`
+                    $("#recipe-page-instructions").append(nextInstruction)
+
+                }
+
+                for (i = 0; i < data.extendedIngredients.length; i++) {
+                    let ingredient = data.extendedIngredients[i].original
+
+                    let nextIngredient = `<li>
+        <p>${ingredient}</p>
+        </li>`
+                    $("#recipe-page-ingredient-list").append(nextIngredient)
+
+                }
+            })
+
+        }
+    });
+</script>
