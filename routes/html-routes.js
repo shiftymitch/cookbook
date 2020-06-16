@@ -48,7 +48,8 @@ module.exports = function (app) {
             description: recipe.description,
             createdAt: () => {
               return recipe.createdAt = moment().format("MMM Do YYYY");
-            }
+            },
+            image: `/img/avatars/${Math.floor(Math.random() * 10 +1)}.png`
           }
         })
       };
@@ -92,7 +93,8 @@ module.exports = function (app) {
               description: recipe.description,
               createdAt: () => {
                 return recipe.createdAt = moment().format("MMM Do YYYY");
-              }
+              },
+              image: `/img/avatars/${Math.floor(Math.random() * 10 +1)}.png`
             }
           })
         };
@@ -126,7 +128,6 @@ module.exports = function (app) {
       include: db.Ingredient
     })
       .then((dbResult) => {
-        console.log(dbResult.dataValues)
         const recipe = dbResult.dataValues;
         let hbsObject = {
           recipe: {
@@ -137,6 +138,7 @@ module.exports = function (app) {
             createdAt: () => {
               return recipe.createdAt = moment().format("MMM Do YYYY");
             },
+            image: `/img/avatars/${Math.floor(Math.random() * 10 +1)}.png`,
             ingredients: recipe.Ingredients.map(ingredient => {
               return {
                 name: ingredient.name,
