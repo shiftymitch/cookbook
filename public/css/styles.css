@@ -119,6 +119,14 @@ body {
   margin-bottom: 4em;
 }
 
+.p-l2 {
+  margin-left: 2em;
+}
+
+.p-r2 {
+  margin-right: 2em;
+}
+
 .button.is-link {
   background-color: #EFA35C;
 }
