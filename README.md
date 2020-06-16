@@ -1,5 +1,3 @@
-### Project Name
-
 # Cookbook
 
 ![cookbook-screenshot](https://user-images.githubusercontent.com/4752937/84712609-3cafe580-af26-11ea-8364-01512cd9cfe3.png)
@@ -21,7 +19,7 @@ Your section headers will be used to reference location of destination.
 
 ---
 
-## Description
+### Description
 
 Cookbook is a community driven recipe database, which gives users the ability to sign-up, submit recipes, search for community recipes, and search a larger 3rd party database.
 
@@ -129,13 +127,13 @@ app.get("/api/random-recipe", function (req, res) {
 
 ---
 
-## License
+### License
 
 MIT © [shiftymitch](https://github.com/shiftymitch), [nvalline](https://github.com/nvalline), [nabeek](https://github.com/nabeek)
 
 ---
 
-## Contributors
+### Contributors
 
 | Developer | GitHub |
 | ------ | ------ |
