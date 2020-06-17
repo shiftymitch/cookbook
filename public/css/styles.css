@@ -7,6 +7,14 @@ body {
   padding: 20px;
 }
 
+#nav-toggle-state {
+  display: none;
+}
+
+#nav-toggle-state:checked ~ .nav-menu {
+  display: block;
+}
+
 .index-padding {
   padding-top: 0;
   flex-grow: 0;
@@ -24,7 +32,7 @@ body {
 /* Header CSS */
 .navbar {
   background-color: #ececec;
-  height: 10vh;
+  /* height: 10vh; */
 }
 
 /* Profile Page */
