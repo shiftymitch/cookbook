@@ -1,5 +1,7 @@
 # Cookbook
 
+[![Build Status](https://travis-ci.org/shiftymitch/cookbook.svg?branch=master)](https://travis-ci.org/shiftymitch/cookbook)
+
 ![cookbook-screenshot](https://user-images.githubusercontent.com/4752937/84712609-3cafe580-af26-11ea-8364-01512cd9cfe3.png)
 
 ---
