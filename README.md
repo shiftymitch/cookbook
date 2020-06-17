@@ -31,19 +31,19 @@ Our app is purpose-built from recipe submission to display to provide only the i
 
 ---
 
-## How to Use
+### How to Use
 
 Simply open the application in any browser. Once the page is loaded, signup, login, and begin adding and searching for recipes. Cookbook is community-driven, so why not share your favorite recipes!
 
 ---
 
-#### Installation
+### Installation
 
 Cookbook is live [here](https://the-cookbook-app.herokuapp.com/)
 
 ---
 
-#### Technologies
+### Technologies
 
 [Axios](https://www.npmjs.com/package/axios)\
 [Bulma](https://bulma.io/)\
@@ -69,7 +69,7 @@ Future improvements for the application:
 
 ---
 
-#### Code Samples
+### Code Samples
 
 Routes returning a user recipe or spoonacular API random recipes:
 
