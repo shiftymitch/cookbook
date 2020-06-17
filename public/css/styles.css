@@ -24,7 +24,7 @@ body {
 /* Header CSS */
 .navbar {
   background-color: #ececec;
-  height: 10vh;
+  /* height: 10vh; */
 }
 
 /* Profile Page */
